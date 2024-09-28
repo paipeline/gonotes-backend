@@ -4,6 +4,7 @@ package main
 import (
 	"goauth/initializers"
 	"goauth/models"
+	"log"
 )
 
 func init(){
@@ -12,5 +13,11 @@ func init(){
 }
 
 func main(){
-	initializers.DB.AutoMigrate(&models.User{}) // automigrate
+	
+	err := initializers.DB.AutoMigrate(&models.User{}) // automigrate
+	if err != nil {
+		log.Fatal("Error migrating models:", err)
+	}
+	log.Println("Migration completed")
+	
 }

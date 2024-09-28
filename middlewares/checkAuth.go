@@ -14,9 +14,10 @@ import (
 )
 
 
+
+
 func CheckAuth(c *gin.Context){
 	authHeader:=c.GetHeader("authorization")
-
 	if authHeader==""{
 		c.JSON(http.StatusUnauthorized,gin.H{"error":"Authorzation header is missing"})
 		c.AbortWithStatus(http.StatusUnauthorized)
@@ -63,4 +64,3 @@ func CheckAuth(c *gin.Context){
 
 	c.Next()
 }
-
