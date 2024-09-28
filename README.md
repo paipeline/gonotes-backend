@@ -64,3 +64,8 @@ GO_ENV=production go run main.go
 - `SECRET`: Key used for JWT signing
 
 Please adjust these configurations according to your specific needs and security requirements.
+
+
+
+#### USER AUTH
+current user auth can be reused in other sections.
