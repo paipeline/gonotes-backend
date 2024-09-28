@@ -1,9 +1,10 @@
-#TODO-LIST
+# TODO-LIST
 
 ## Database design and deployment
 Pai:
-- [ X ] wrap a better environment for production and for dev
-
+- [ x ] wrap a better environment for production and for dev
+- [ ] check the model and repository implementation
+- [ ] testers for model
 
 ## AI agent interaction with database
 
@@ -14,7 +15,7 @@ Pai:
 Shenwei:
 
 - [ ] user authentication design graph
-- [ ] database design graph
+- [ ] write some testers fro user authentication
 
 
 

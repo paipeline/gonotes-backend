@@ -1,8 +1,16 @@
+// @title GoAuth API
+// @version 1.0
+// @description 用户认证和笔记管理 API
+// @host localhost:8080
+// @BasePath /api/v1
+
 package main
 
 import (
+	"goauth/api"
 	"goauth/controllers"
 	"goauth/initializers"
+	"goauth/repositories"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,30 +29,18 @@ func main() {
 		c.String(http.StatusOK, "healthy service")
 	})
 
-	// api control
-	v1 := router.Group("/api/v1")
+	// 初始化数据库连接
+	db := initializers.DB
 
-	// auth related operations
-	auth := v1.Group("/auth")
-	{
-		auth.POST("/signup", controllers.CreateUser)
-		auth.POST("/login", controllers.Login)
-	}
-	// user related operations
-	user := v1.Group("/user")
-	{
-		user.GET("/profile", controllers.GetUserProfile)
-		// notes related operations
-		notes := v1.Group("/note")
-		{
-			notes.POST("", controllers.CreateNote)       // example localhost:8080/api/v1/user/note
-			notes.GET("/:id", controllers.GetNote)       // example localhost:8080/api/v1/user/note/1
-			notes.PUT("/:id", controllers.UpdateNote)    // example localhost:8080/api/v1/user/note/1
-			notes.DELETE("/:id", controllers.DeleteNote) // example localhost:8080/api/v1/user/note/1
-			notes.GET("/all", controllers.ListNotes)     // example localhost:8080/api/v1/note/all
-		}
+	// 初始化存储库
+	documentRepo := repositories.NewDocumentRepository(db)
+	authController := controllers.NewAuthController(db)
 
-	}
+	// 初始化 API
+	userAPI := api.NewUserAPI(authController, documentRepo)
+
+	// 设置路由
+	userAPI.SetupRoutes(router)
 
 	router.Run(":8080")
 }

@@ -1,4 +1,4 @@
-package controllers
+package repositories
 
 import (
 	"goauth/initializers"
@@ -7,7 +7,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
-
 
 func CreateNote(c *gin.Context) {
 	// 从上下文中获取当前用户
@@ -55,13 +54,10 @@ func ListNotes(c *gin.Context) {
 	var notes []models.Note
 	initializers.DB.Find(&notes)
 	c.JSON(http.StatusOK, gin.H{"data": notes})
- }
-
+}
 
 func UpdateNote(c *gin.Context) { /* ... */ }
 func DeleteNote(c *gin.Context) { /* ... */ }
 
-func GetNote(c *gin.Context) { /* ... */ }
+func GetNote(c *gin.Context)           { /* ... */ }
 func GetAllNotesByUser(c *gin.Context) { /* ... */ }
-
-
